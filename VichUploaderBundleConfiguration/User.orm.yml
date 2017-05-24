@@ -1,0 +1,93 @@
+Management\AdminBundle\Entity\User:
+
+    type: entity
+
+    table: system_user
+
+    repositoryClass: Management\AdminBundle\Repository\UserRepository
+
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: email
+
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+
+    attributeOverride:
+        username:
+            column: username
+            type: string
+            length: 128
+            nullable: true
+        usernameCanonical:
+            column: username_canonical
+            type: string
+            length: 128
+            nullable: true
+            unique: false
+        email:
+            column: email
+            type: string
+            length: 128
+            nullable: true
+        emailCanonical:
+            column: email_canonical
+            type: string
+            length: 128
+            nullable: true
+            unique: false
+
+    fields:
+#        username:                   { type: string, length: 128, nullable: true }
+#        usernameCanonical:          { type: string, length: 128, nullable: true }
+#        email:                      { type: string, length: 128, nullable: true }
+#        emailCanonical:             { type: string, length: 128, nullable: true }
+        vkontakte_id:               { type: integer, options: { unsigned: true }, nullable: true }
+        odnoklassniki_id:           { type: bigint, options: { unsigned: true }, nullable: true }
+        vkontakte_access_token:     { type: string, length: 255, nullable: true }
+        odnoklassniki_access_token: { type: string, length: 255, nullable: true }
+
+        firstName:                  { type: string, length: 64, nullable: true }
+        lastName:                   { type: string, length: 64, nullable: true }
+        profileImageName:           { type: string, length: 255, nullable: true }
+        sex:                        { type: string, length: 8, nullable: true }
+        dateOfBirth:                { type: date, nullable: true }
+        phoneNumber:                { type: string, length: 16, nullable: true }
+#        phoneNumber:                { type: phone_number, nullable: true }
+        aWeekdaysFrom:              { type: smallint, options: { unsigned: true }, nullable: true }
+        aWeekdaysTo:                { type: smallint, options: { unsigned: true }, nullable: true }
+        aWeekendFrom:               { type: smallint, options: { unsigned: true }, nullable: true }
+        aWeekendTo:                 { type: smallint, options: { unsigned: true }, nullable: true }
+
+        points:                     { type: smallint, options: { unsigned: true }, nullable: true }
+        percentageRatio:            { type: string, length: 11, nullable: true }
+        numberOfGames:              { type: smallint, options: { unsigned: true }, nullable: true }
+        experience:                 { type: smallint, options: { unsigned: true }, nullable: true }
+        tennisClub:                 { type: string, length: 128, nullable: true }
+        briefInfo:                  { type: string, length: 512, nullable: true }
+
+        dateOfCreation:             { type: datetime, nullable: false }
+        dateOfChange:               { type: datetime, nullable: false }
+
+    manyToOne:
+        city:
+            targetEntity: Geo\LocationBundle\Entity\City
+            joinColumn:
+                name: city_id
+                referencedColumnName: id
+        skillLevel:
+            targetEntity: SocialNetwork\TournamentsBundle\Entity\SkillLevel
+            joinColumn:
+                name: skill_level_id
+                referencedColumnName: id
+
+    oneToOne: { }
+
+    oneToMany: { }
+
+    manyToMany: { }
+
+lifecycleCallbacks: { }
