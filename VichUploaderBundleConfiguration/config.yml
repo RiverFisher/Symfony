@@ -1,0 +1,7 @@
+# VichUploaderBundle
+vich_uploader:
+    db_driver: orm
+    mappings:
+        profile_image:
+            uri_prefix:         /uploads/images/user_profile
+            upload_destination: '%kernel.root_dir%/../web/uploads/images/user_profile'
